@@ -1,7 +1,12 @@
 import "./App.css";
+import Quiz from "./components/Quiz";
 
 function App() {
-  return <p>Capitals Quiz App</p>;
+  return (
+    <div>
+      <Quiz />
+    </div>
+  );
 }
 
 export default App;
