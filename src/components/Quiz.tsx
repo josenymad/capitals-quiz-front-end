@@ -11,8 +11,12 @@ const Quiz: React.FC = () => {
   const [quizData, setQuizData] = useState<QuizData | null>(null);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const fetchQuizData = async () => {
+    setLoading(true);
+    setError(null);
     try {
       const response = await axios.get("/quiz");
       setQuizData(response.data);
@@ -20,7 +24,9 @@ const Quiz: React.FC = () => {
       setFeedback(null);
     } catch (error) {
       console.error("Error fetching quiz data", error);
-      setFeedback("An error occurred. Please try again.");
+      setError("Failed to load quiz data. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -45,7 +51,22 @@ const Quiz: React.FC = () => {
         <h1 className="text-2xl font-bold text-center mb-4">
           Capital Cities Quiz
         </h1>
-        {quizData ? (
+
+        {loading && <p className="text-center text-lg">Loading...</p>}
+
+        {error && (
+          <div className="text-center text-red-600">
+            <p>{error}</p>
+            <button
+              onClick={fetchQuizData}
+              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 transition-colors duration-300"
+            >
+              Retry
+            </button>
+          </div>
+        )}
+
+        {!loading && !error && quizData && (
           <>
             <h2 className="text-xl font-semibold text-center mb-6">
               What is the capital of{" "}
@@ -67,6 +88,7 @@ const Quiz: React.FC = () => {
                 </button>
               ))}
             </div>
+
             {feedback && (
               <p className="mt-4 text-lg text-center font-medium">
                 {feedback.includes("Correct") ? (
@@ -76,6 +98,7 @@ const Quiz: React.FC = () => {
                 )}
               </p>
             )}
+
             <button
               onClick={fetchQuizData}
               className="mt-6 bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 transition-colors duration-300"
@@ -83,8 +106,10 @@ const Quiz: React.FC = () => {
               Play Again
             </button>
           </>
-        ) : (
-          <p className="text-center text-lg">Loading...</p>
+        )}
+
+        {!loading && !error && !quizData && (
+          <p className="text-center text-lg">No quiz data available.</p>
         )}
       </div>
     </div>
