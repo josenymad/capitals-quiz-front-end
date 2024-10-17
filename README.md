@@ -12,6 +12,14 @@ The Capital Cities Quiz application is a React-based quiz that helps users learn
 - **Tailwind CSS**: A utility-first CSS framework for creating custom designs without leaving your HTML.
 - **Axios**: A promise-based HTTP client for making requests to the backend API.
 
+## API Integration
+
+The frontend communicates with the Laravel backend through the following endpoint:
+
+- **GET** `/quiz`: Fetches quiz data, including a random country, an array of three capital city options, and the correct capital as a separate field.
+
+Before anything else, ensure that the backend is running on [http://localhost:8000](http://localhost:8000), you can find the repository [here](https://github.com/josenymad/capital-quiz-backend).
+
 ## Installation
 
 ### Prerequisites
@@ -46,14 +54,6 @@ The application should now be running on http://localhost:5173.
 - If the guess is incorrect, the correct capital city is displayed.
 - Users can play again by clicking the “Play Again” button, which fetches a new country and options.
 - In case of an error (e.g., network issues), an error message will be displayed along with a “Retry” button.
-
-## API Integration
-
-The frontend communicates with the Laravel backend through the following endpoint:
-
-- **GET** `/quiz`: Fetches quiz data, including a random country and an array of options for the capital city.
-
-Ensure that the backend is running on [http://localhost:8000](http://localhost:8000), you can find the repository [here](https://github.com/josenymad/capital-quiz-backend).
 
 ## Error Handling
 
