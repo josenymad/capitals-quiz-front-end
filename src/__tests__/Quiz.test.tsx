@@ -60,3 +60,20 @@ test("fetches and displays quiz data, allows user to guess, and gives feedback o
     ).toBeInTheDocument();
   });
 });
+
+test("handles API error state and displays an error message", async () => {
+  (axios.get as jest.Mock).mockRejectedValue(new Error("Network Error"));
+
+  render(<Quiz />);
+
+  await waitFor(() => {
+    expect(
+      screen.getByText(/Failed to load quiz data. Please try again./i)
+    ).toBeInTheDocument();
+  });
+
+  const retryButton = screen.getByText(/Retry/i);
+  fireEvent.click(retryButton);
+
+  expect(axios.get).toHaveBeenCalledTimes(2);
+});
