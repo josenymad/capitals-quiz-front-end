@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Capital Cities Quiz application is a React-based quiz that helps users learn the capital cities of various countries. The application communicates with a Laravel backend to fetch quiz data and display it to users in an interactive format.
+The Capital Cities Quiz application is a React-based quiz that helps users learn the capital cities of various countries. The application communicates with a [Laravel backend](https://github.com/josenymad/capital-quiz-backend) to fetch quiz data and display it to users in an interactive format.
 
 ## Technologies Used
 
